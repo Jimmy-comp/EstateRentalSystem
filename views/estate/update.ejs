@@ -1,0 +1,64 @@
+<!--update.ejs-->
+<form action="/estate/update/<%= estate.id %>" method="POST">
+    <h4>Property Create Form</h4>
+    <div class="row">
+        <div class="col-md-6 col-sm-1">
+            <div class="form-group">
+                <label>Property title:</label>
+                <input type="text" class="form-control" name="Estate[title]" value="<%= estate.title %>" required>
+            </div>
+
+            <div class="form-group">
+                <label>Estate:</label><br>
+                <select id="estate" class="form-control" name="Estate[estatename]" value="<%= estate.estatename %>">
+                    <option value="National City">National City</option>
+                    <option value="Central City">Central City</option>
+                    <option value="Metropolis">Metropolis</option>
+                    <option value="Gothan City">Gothan City</option>
+                    <option value="Death City">Death City</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Gross Area:</label>
+                <input type="number" class="form-control" name="Estate[area]" value="<%= estate.area %>" min="0" max="2000" required>
+            </div>
+
+            <div class="form-group">
+                <label>Rent: </label>
+                <input type="number" class="form-control" name="Estate[rent]" value="<%= estate.rent %>" min="0" max="30000" required>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-sm-1">
+            <div class="form-group">
+                <label>Image URL:</label>
+                <input type="text" class="form-control" name="Estate[url]" value="<%= estate.url %>" required>
+            </div>
+
+            <div class="form-group">
+                <label>Bedrooms:</label>
+                <input type="number" class="form-control" name="Estate[roomnum]" value="<%= estate.roomnum %>" required>
+            </div>
+
+            <div class="form-group">
+                <label>Expected Tenants:</label>
+                <input type="number" class="form-control" name="Estate[tenants]" value="<%= estate.tenants %>" required>
+            </div>
+
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" name="Estate[highlightprop]"
+                    value="<%= estate.highlightprop %>">
+                <label class="form-check-label">Highlighted Property</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</form>
+
+<form action="/estate/delete/<%= estate.id %>" method="POST">
+    <div class="form-group">
+        <button action="delete" class="btn btn-danger">Delete</button>
+    </div>
+</form>

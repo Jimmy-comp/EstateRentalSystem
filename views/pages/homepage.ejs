@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="row">
+    <% estates.forEach( function(model) { %>
+    <div class="col-md-6 card">
+      <a href="estate/view/<%= model.id %>" class="h2"><%= model.title %></a>
+
+      <div class="row">
+        <div class="col-md-6">
+          <img src="<%= model.url%>" width="220" height="130" />
+        </div>
+
+        <div class="col-md-6">
+          
+            <div class="list-group">
+              <p class="list-group-item"><b>Estate:</b> <%= model.estatename %></p>
+              <p class="list-group-item"><b>Gross Area:</b> <%= model.area %> sq feet</p>
+              <p class="list-group-item"><b>Rent:</b> $<%= model.rent %></p>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+    <% }); %>
+  </div>
+</div>

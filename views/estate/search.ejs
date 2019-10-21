@@ -1,0 +1,101 @@
+<!--paginate.ejs-->
+<div class="row">
+    <div class="col-md-8 col-sm-1">
+        <div class="row">
+            <% estate.forEach( function(model) { %>
+            <div class="col-sm-1 col-md-6 card">
+                <img class="card-img-top" src="<%= model.url%>" />
+                <div class="card-body">
+                    <div style="text-align: center">
+                        <a class=" h5" href="/estate/view/<%= model.id %>">
+                            <%= model.title %> </a>
+                    </div>
+                    <div class="list-group">
+                        <p class="list-group-item"><b>Estate:</b> <%= model.estatename %></p>
+                        <p class="list-group-item"><b>Gross Area:</b> <%= model.area %> sq feet</p>
+                        <p class="list-group-item"><b>Rent:</b> $<%= model.rent %></p>
+                    </div>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+    </div>
+
+    <% const current = parseInt(req.query.page) || 1; %>
+
+    <div class="form-group col-md-4 col-sm-1">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="/estate/search/?page=<%= Math.max(current-1, 1) %>">Previous</a>
+                </li>
+
+                <% for (i = 1; i <= count; i++) { %>
+                <li class="page-item">
+                    <a class="page-link" href="/estate/search/?page=<%= i %>"><%= i %></a>
+                </li>
+                <% } %>
+
+                <li class="page-item">
+                    <a class="page-link" href="/estate/search/?page=<%= Math.min(current+1, count) %>">Next</a>
+                </li>
+            </ul>
+        </nav>
+
+        <form action="/estate/search" method="GET">
+            <h2>Property Search</h2>
+
+            <div class="form-group row">
+                <label class="col-sm-2">Estate:</label>
+                <div class="col-sm-10">
+                    <select id="estate" class="form-control" name="estatename">
+                        <option value="dummy">Select estate here</option>
+                        <option value="National City">National City</option>
+                        <option value="Central City">Central City</option>
+                        <option value="Metropolis">Metropolis</option>
+                        <option value="Gothan City">Gothan City</option>
+                        <option value="Death City">Death City</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3">Bedrooms:</label>
+                <div class="col-sm-9">
+                    <input type="number" class="form-control" name="roomnum">
+                </div>
+            </div>
+
+            <div class="form group">
+                <label>Area (Sq feet):</label>
+                <div class="row">
+                    <label class="col-sm-2">Min:</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" name="minarea" placeholder="0" min="0">
+                    </div>
+                    <label class="col-sm-2">Max:</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" name="maxarea" placeholder="2000" max="2000">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form group">
+                <label><br>Rent (HK$):</label>
+                <div class="row">
+                    <label class="col-sm-2">Min:</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" name="minrent" placeholder="0" min="0">
+                    </div>
+                    <label class="col-sm-2">Max:</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" name="maxrent" placeholder="30000" max="30000">
+                    </div>
+                </div>
+                <br>
+            </div>
+
+            <button type="menu" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+</div>

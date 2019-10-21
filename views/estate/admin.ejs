@@ -1,0 +1,10 @@
+<table class="table">
+    <% estates.forEach( function(model) { %>
+    <tr>
+        <td><%= model.id %></td>
+        <td><%= model.title %></td>
+        <td><%= model.estatename %></td>
+        <td><a href="/estate/update/<%= model.id %>">Edit</a></td>
+    </tr>
+    <% }); %>
+</table>
