@@ -120,12 +120,6 @@ module.exports = {
 
         var range = { estatename: { contains: qEstate }, area: { ">=": qMinArea, "<=": qMaxArea }, rent: { ">=": qMinRent, "<=": qMaxRent } };
 
-        // var model = await Estate.find({
-        //     limit: numOfItemsPerPage,
-        //     skip: numOfItemsPerPage * qPage,
-        //     sort: 'createdAt desc'
-        // });
-
         if (isNaN(qRoomnum)) {
 
             var model = await Estate.find({
