@@ -4,7 +4,7 @@
         <div class="row">
             <% estate.forEach( function(model) { %>
             <div class="col-sm-1 col-md-6 card">
-                <img class="card-img-top" src="<%= model.url%>" />
+                <img class="card-img-top" style="width: 350px; height: 200px" src="<%= model.url%>" />
                 <div class="card-body">
                     <div style="text-align: center">
                         <a class=" h5" href="/estate/view/<%= model.id %>">
