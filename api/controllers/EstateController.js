@@ -80,12 +80,13 @@ module.exports = {
 
             var models = await Estate.update(req.params.id).set({
                 title: req.body.Estate.title,
-                estate: req.body.Estate.estate,
+                estatename: req.body.Estate.estatename,
                 area: req.body.Estate.area,
                 rent: req.body.Estate.rent,
                 url: req.body.Estate.url,
                 roomnum: req.body.Estate.roomnum,
                 tenants: req.body.Estate.tenants,
+                highlightprop: req.body.Estate.highlightprop  || "",
             }).fetch();
 
             if (models.length == 0) return res.notFound();
