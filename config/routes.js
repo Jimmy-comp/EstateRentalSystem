@@ -33,7 +33,7 @@ module.exports.routes = {
   * not match any of those, it is matched against static assets.             *
   *                                                                          *
   ***************************************************************************/
-
+ 
   '/': 'EstateController.homepage',
   'GET /estate/create': 'EstateController.create',
   'GET /estate/view/:id': 'EstateController.view',

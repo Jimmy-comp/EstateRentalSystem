@@ -105,7 +105,7 @@ module.exports = {
         return res.redirect('/estate/admin');
     },
 
-    // search function
+    // search function 
     search: async function (req, res) {
         const qPage = Math.max(req.query.page - 1, 0) || 0;
         const numOfItemsPerPage = 2;

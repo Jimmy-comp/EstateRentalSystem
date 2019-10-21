@@ -35,7 +35,7 @@ module.exports = {
     roomnum: {
       type: "number"
     },
-
+ 
     tenants: {
       type: "number"
     },
