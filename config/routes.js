@@ -19,10 +19,6 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  // '/': { view: 'pages/homepage' },
-
-
-
   /***************************************************************************
   *                                                                          *
   * More custom routes here...                                               *
@@ -33,13 +29,23 @@ module.exports.routes = {
   * not match any of those, it is matched against static assets.             *
   *                                                                          *
   ***************************************************************************/
- 
+
   '/': 'EstateController.homepage',
+
   'GET /estate/create': 'EstateController.create',
+
   'GET /estate/view/:id': 'EstateController.view',
+
   'POST /estate/delete/:id': 'EstateController.delete',
+
   'GET /estate/update/:id': 'EstateController.update',
   'POST /estate/update/:id': 'EstateController.update',
+
   'GET /estate/admin': 'EstateController.admin',
+
   'GET /estate/search': 'EstateController.search',
+
+  'GET /user/login': 'UserController.login',
+  'POST /user/login': 'UserController.login',
+  'POST /user/logout': 'UserController.logout',
 };

@@ -10,30 +10,29 @@
  */
 
 module.exports.bootstrap = async function () {
-
   // By convention, this is a good place to set up fake data during development.
   //
   // For example:
   // ```
   // // Set up fake development data (or if we already have some, avast)
-  // if (await User.count() > 0) {
-  //   return;
-  // }
-  //
-  // await User.createEach([
-  //   { emailAddress: 'ry@example.com', fullName: 'Ryan Dahl', },
-  //   { emailAddress: 'rachael@example.com', fullName: 'Rachael Shaw', },
-  //   // etc.
-  // ]);
-  // ```
-  
-  // if (await Estate.count() > 0) {
-  //   return done();
-  // }
 
-  // await Estate.createEach([
-  //   { name: "Martin Choy", age: 23 },
-  //   { name: "Kenny Cheng", age: 22 }
-  //   // etc.
-  // ]);
+  if (await Estate.count() == 0) {
+    await Estate.createEach([
+      { title: "Luxury & Power", estatename: "Gothan City", area: 30, rent: 14000, url: "https://www.ikea.com/images/step-into-living-room-turned-haven-made-just-for-you-with-a--0f78c0738a9904f9ddbbc81dd5af2ffa.jpg?f=s", roomnum: 3, tenants: 3, highlightprop: "true" },
+      { title: "DC 最強", estatename: "Metropolis", area: 150, rent: 20000, url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdJZEynmnQjySyRJcKgbXLAVZ-M8MY-Vtvwmfh-EPyxfWORsfQ2g", roomnum: 5, tenants: 8, highlightprop: "true" },
+      { title: "鄰近正義聯盟", estatename: "Central City", area: 100, rent: 17000, url: "http://images.unsplash.com/photo-1550581190-9c1c48d21d6c?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEyMDd9", roomnum: 3, tenants: 4, highlightprop: "true" },
+      // etc.
+    ]);
+  }
+
+  if (await User.count() == 0) {
+    await User.createEach([
+      { username: "admin", password: "123456" },
+      { username: "boss", password: "123456" }
+      // etc.
+    ]);
+
+  }
+
+  return;
 };
