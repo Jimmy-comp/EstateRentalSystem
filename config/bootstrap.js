@@ -36,9 +36,19 @@ module.exports.bootstrap = async function () {
   await User.createEach([
     { username: "admin", password: hash },
     { username: "Doramon", password: "comp3047" },
-    { username: "Jimmy", password: "a12345"}
+    { username: "Jimmy", password: "a12345" }
     // etc.
   ]);
+
+  const estate1 = await Estate.findOne({title: "DC 最強", estatename: "Metropolis" });
+  const estate2 = await Estate.findOne({title: "Luxury & Power", estatename: "Kenny Cheng" });
+  const admin = await User.findOne({ username: "admin"});
+  const user1 = await User.findOne({ username: "Doramon" });
+  const user2 = await User.findOne({ username: "Jimmy" });
+
+  await User.addToCollection(admin.id, 'supervises').members([estate1.id, estate2.id]);
+  await User.addToCollection(user1.id, 'supervises').members(estate1.id);
+  await User.addToCollection(user2.id, 'supervises').members(estate2.id);
 
   return;
 };
