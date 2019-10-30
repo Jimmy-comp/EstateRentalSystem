@@ -86,7 +86,7 @@ module.exports = {
                 url: req.body.Estate.url,
                 roomnum: req.body.Estate.roomnum,
                 tenants: req.body.Estate.tenants,
-                highlightprop: req.body.Estate.highlightprop  || "",
+                highlightprop: req.body.Estate.highlightprop || "",
             }).fetch();
 
             if (models.length == 0) return res.notFound();
@@ -103,7 +103,8 @@ module.exports = {
 
         if (models.length == 0) return res.notFound();
 
-        return res.redirect('/estate/admin');
+        // return res.redirect("'/estate/admin'");
+        return res.redirect("/");
     },
 
     // search function 
@@ -139,9 +140,18 @@ module.exports = {
             });
         }
 
-        var numOfPage = Math.ceil(await Estate.count({where: range}) / numOfItemsPerPage);
+        var numOfPage = Math.ceil(await Estate.count({ where: range }) / numOfItemsPerPage);
 
         return res.view('estate/search', { estate: model, count: numOfPage });
+    },
+
+    populate: async function (req, res) {
+        var model = await Estate.findOne(req.params.id).populate("viewFrom");
+
+        if (!model) return res.notFound();
+
+        return res.json(model);
+
     },
 };
 

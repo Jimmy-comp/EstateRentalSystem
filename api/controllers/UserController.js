@@ -15,8 +15,10 @@ module.exports = {
 
         if (!user) return res.status(401).send("User not found");
 
-        if (user.password != req.body.password)
-            return res.status(401).send("Wrong Password");
+        const match = await sails.bcrypt.compare(req.body.password, user.password);
+
+        if (!match) return res.status(401).send("Wrong Password");
+
 
         req.session.regenerate(function (err) {
 
@@ -41,5 +43,42 @@ module.exports = {
         });
     },
 
+    populate: async function (req, res) {
+        var model = await User.findOne(req.params.id).populate("supervises");
+
+        if (!model) return res.notFound();
+
+        return res.json(model);
+    },
+
+    add: async function (req, res) {
+        if (!await User.findOne(req.params.id)) return res.notFound();
+
+        const thatEstate = await Estate.findOne(req.params.fk).populate("viewFrom", { id: req.params.id });
+
+        if (!thatEstate) return res.notFound();
+
+        if (thatEstate.viewFrom.length)
+            return res.status(409).send("Already added.");   // conflict
+
+        await User.addToCollection(req.params.id, "supervises").members(req.params.fk);
+
+        return res.ok('Operation completed.');
+    },
+
+    remove: async function (req, res) {
+        if (!await User.findOne(req.params.id)) return res.notFound();
+        
+        const thatEstate = await Estate.findOne(req.params.fk).populate("viewFrom", {id: req.params.id});
+        
+        if (!thatEstate) return res.notFound();
+    
+        if (!thatEstate.viewFrom.length)
+            return res.status(409).send("Nothing to delete.");    // conflict
+    
+        await User.removeFromCollection(req.params.id, "supervises").members(req.params.fk);
+    
+        return res.ok('Operation completed.');
+    },
 };
 

@@ -29,10 +29,6 @@ module.exports.bootstrap = async function () {
 
   const hash = await sails.bcrypt.hash('123456', saltRounds);
 
-  const match = await sails.bcrypt.compare(req.body.password, user.password);
-
-  if (!match) return res.status(401).send("Wrong Password");
-
   await User.createEach([
     { username: "admin", password: hash },
     { username: "Doramon", password: "comp3047" },
@@ -41,11 +37,12 @@ module.exports.bootstrap = async function () {
   ]);
 
   const estate1 = await Estate.findOne({title: "DC 最強", estatename: "Metropolis" });
-  const estate2 = await Estate.findOne({title: "Luxury & Power", estatename: "Kenny Cheng" });
+  const estate2 = await Estate.findOne({title: "Luxury & Power", estatename: "Gothan City" });
   const admin = await User.findOne({ username: "admin"});
   const user1 = await User.findOne({ username: "Doramon" });
   const user2 = await User.findOne({ username: "Jimmy" });
 
+  
   await User.addToCollection(admin.id, 'supervises').members([estate1.id, estate2.id]);
   await User.addToCollection(user1.id, 'supervises').members(estate1.id);
   await User.addToCollection(user2.id, 'supervises').members(estate2.id);

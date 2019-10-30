@@ -30,22 +30,37 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
+  //homepage
   '/': 'EstateController.homepage',
 
+  //createform
   'GET /estate/create': 'EstateController.create',
 
+  //view item
   'GET /estate/view/:id': 'EstateController.view',
 
-  'POST /estate/delete/:id': 'EstateController.delete',
+  //delete item
+  // 'POST /estate/delete/:id': 'EstateController.delete',
+  'DELETE /estate/:id': 'EstateController.delete',
 
+  //update item
   'GET /estate/update/:id': 'EstateController.update',
   'POST /estate/update/:id': 'EstateController.update',
 
+  //adminpage
   'GET /estate/admin': 'EstateController.admin',
 
+  //search item
   'GET /estate/search': 'EstateController.search',
 
+  //login
   'GET /user/login': 'UserController.login',
   'POST /user/login': 'UserController.login',
   'POST /user/logout': 'UserController.logout',
+
+  //rental relationship
+  'GET /estate/:id/viewFrom': 'EstateController.populate',
+  'GET /user/:id/supervises': 'UserController.populate',
+  'POST /user/:id/supervises/add/:fk': 'UserController.add',
+  'POST /user/:id/supervises/remove/:fk': 'UserController.remove',
 };

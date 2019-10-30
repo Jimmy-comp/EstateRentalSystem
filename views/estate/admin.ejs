@@ -1,10 +1,35 @@
-<table class="table"> 
+<table class="table">
     <% estates.forEach( function(model) { %>
     <tr>
         <td><%= model.id %></td>
         <td><%= model.title %></td>
         <td><%= model.estatename %></td>
         <td><a href="/estate/update/<%= model.id %>">Edit</a></td>
+        <td>
+            <button type="button" class="btn btn-danger" onclick="deleteEstate('<%= Estate.id %>')">Delete</button>
+        </td>
     </tr>
     <% }); %>
 </table>
+
+<script>
+    async function deleteEstate(id) {
+        var dr = document.getElementById("deleteResult");
+
+        var r = confirm("Confirm Delete?");
+
+        if (r) {
+            var response = await fetch("/estate/" + id, {
+                method: "DELETE",
+                credentials: 'same-origin',
+            });
+
+            console.log(response);
+
+            alert(response.status + ": " + response.statusText);
+        } else {
+            alert("cancelled");
+        }
+    };
+
+</script>
