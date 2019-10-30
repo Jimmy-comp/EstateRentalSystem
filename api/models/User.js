@@ -28,10 +28,10 @@ module.exports = {
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
 
-    // supervises: {
-    //   collection: 'Estate',
-    //   via: 'worksFor'
-    // },
+    supervises: {
+      collection: 'Estate',
+      via: 'rentFor'
+    },
   },
 
 };

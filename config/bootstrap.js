@@ -29,13 +29,14 @@ module.exports.bootstrap = async function () {
 
   const hash = await sails.bcrypt.hash('123456', saltRounds);
 
-  // const match = await sails.bcrypt.compare(req.body.password, user.password);
+  const match = await sails.bcrypt.compare(req.body.password, user.password);
 
-  // if (!match) return res.status(401).send("Wrong Password");
+  if (!match) return res.status(401).send("Wrong Password");
 
   await User.createEach([
     { username: "admin", password: hash },
-    { username: "boss", password: hash }
+    { username: "boss", password: hash },
+    { username: "Jimmy", password: "a12345"}
     // etc.
   ]);
 
