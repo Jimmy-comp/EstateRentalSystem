@@ -30,13 +30,12 @@ module.exports = {
         return res.json(estates);
     },
 
-    // action - index
-    index: async function (req, res) {
+    // // action - index
+    // index: async function (req, res) {
+    //     var models = await Estate.find();
+    //     return res.view('estate/index', { estates: models });
 
-        var models = await Estate.find();
-        return res.view('estate/index', { estates: models });
-
-    },
+    // },
 
     // action - homepage
     homepage: async function (req, res) {
@@ -105,8 +104,12 @@ module.exports = {
         if (models.length == 0) return res.notFound();
 
         // return res.redirect("'/estate/admin'");
-        return res.redirect("/");
-        
+        if (req.wantsJSON) {
+            return res.json({ message: "Estate deleted.", url: '/' });    // for ajax request
+        } else {
+            return res.redirect('/');           // for normal request
+        }
+
     },
 
     // search function 
