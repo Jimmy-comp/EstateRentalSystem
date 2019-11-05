@@ -30,7 +30,11 @@ module.exports = {
 
             sails.log("[Session] ", req.session);
 
-            return res.redirect("/");
+            if (req.wantsJSON) {
+                return res.json({ message: "Login Successfully.", url: '/' });    // for ajax request
+            } else {
+                return res.redirect('/');           // for normal request
+            }
         });
     },
 
@@ -70,16 +74,16 @@ module.exports = {
 
     remove: async function (req, res) {
         if (!await User.findOne(req.params.id)) return res.notFound();
-        
-        const thatEstate = await Estate.findOne(req.params.fk).populate("viewFrom", {id: req.params.id});
-        
+
+        const thatEstate = await Estate.findOne(req.params.fk).populate("viewFrom", { id: req.params.id });
+
         if (!thatEstate) return res.notFound();
-    
+
         if (!thatEstate.viewFrom.length)
             return res.status(409).send("Nothing to delete.");    // conflict
-    
+
         await User.removeFromCollection(req.params.id, "supervises").members(req.params.fk);
-    
+
         return res.ok('Operation completed.');
     },
 };

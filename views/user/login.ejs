@@ -24,9 +24,8 @@
 
         if (response.ok) {
             var data = await response.json();   // for res.ok() or res.json()
-            alert(data);
-            // location.reload(true);
-            location.assign('/')
+            alert(data.message);
+            window.location = data.url;
         } else if (response.status == 401) {
             var data = await response.text();   // for res.send()
             alert(data);
@@ -34,5 +33,4 @@
             alert(response.statusText);
         }
     };
-
 </script>
