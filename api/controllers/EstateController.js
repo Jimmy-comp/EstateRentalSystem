@@ -97,6 +97,7 @@ module.exports = {
 
     // action - delete 
     delete: async function (req, res) {
+
         if (req.method == "GET") return res.forbidden();
 
         var models = await Estate.destroy(req.params.id).fetch();
@@ -105,6 +106,7 @@ module.exports = {
 
         // return res.redirect("'/estate/admin'");
         return res.redirect("/");
+        
     },
 
     // search function 

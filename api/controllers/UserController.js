@@ -24,11 +24,13 @@ module.exports = {
 
             if (err) return res.serverError(err);
 
-            req.session.username = req.body.username;
+            req.session.username = user.username;
+
+            req.session.role = user.role;
 
             sails.log("[Session] ", req.session);
 
-            return res.ok("Login successfully.");
+            return res.redirect("/");
         });
     },
 
@@ -38,7 +40,7 @@ module.exports = {
 
             if (err) return res.serverError(err);
 
-            return res.ok("Log out successfully.");
+            return res.redirect("/");
 
         });
     },

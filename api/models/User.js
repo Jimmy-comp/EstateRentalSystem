@@ -17,9 +17,15 @@ module.exports = {
       required: true
     },
 
+    password: {
+      type: 'string',
+      unique: true,
+      required: true
+    },
+
     role: {
       type: 'string',
-      isIn: ['admin', 'tester', 'visitor'],
+      isIn: ['admin', 'user'],
       defaultsTo: 'visitor'
     },
 

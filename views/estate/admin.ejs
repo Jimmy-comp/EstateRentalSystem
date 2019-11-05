@@ -2,11 +2,12 @@
     <% estates.forEach( function(model) { %>
     <tr>
         <td><%= model.id %></td>
-        <td><%= model.title %></td>
+        <td><a href="/estate/view/<%= model.id %>"><%= model.title %></a></td>
         <td><%= model.estatename %></td>
+        <td><a href="/estate/update/<%= model.id %>">Occupants</a></td>
         <td><a href="/estate/update/<%= model.id %>">Edit</a></td>
         <td>
-            <button type="button" class="btn btn-danger" onclick="deleteEstate('<%= Estate.id %>')">Delete</button>
+            <button type="button" class="btn btn-danger" onclick="deleteEstate('<%= model.id %>')">Delete</button>
         </td>
     </tr>
     <% }); %>
