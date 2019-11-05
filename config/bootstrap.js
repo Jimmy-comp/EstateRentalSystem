@@ -45,7 +45,7 @@ module.exports.bootstrap = async function () {
   const user2 = await User.findOne({ username: "Jimmy" });
 
   
-  await User.addToCollection(admin.id, 'supervises').members([estate1.id, estate2.id]);
+  // await User.addToCollection(admin.id, 'supervises').members([estate1.id, estate2.id]);
   await User.addToCollection(user1.id, 'supervises').members(estate1.id);
   await User.addToCollection(user2.id, 'supervises').members(estate2.id);
 

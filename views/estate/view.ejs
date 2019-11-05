@@ -3,22 +3,24 @@
     <div class="row">
         <div class="col-sm-1 col-md-6">
             <img src="<%= estate.url%>" width="500" height="350" />
-        </div> 
+        </div>
 
         <div class="col-sm-1 col-md-6">
-                <div class="list-group">
-                    <p class="list-group-item"><b>Estate:</b> <%= estate.estatename %></p>
-                    <p class="list-group-item"><b>Gross Area:</b> <%= estate.area %> sq feet</p>
-                    <p class="list-group-item"><b>Rent:</b> $<%= estate.rent %></p>
-                    <p class="list-group-item"><b>Bedrooms:</b> <%= estate.roomnum %></p>
-                    <p class="list-group-item"><b>Expected Tenants:</b> <%= estate.tenants %></p>
-                    <p class="list-group-item"><b>Created:</b>
-                        <%= new Date(estate.createdAt).getUTCMonth()+1 %>/<%= new Date(estate.createdAt).getUTCDate() %>/<%= new Date(estate.createdAt).getUTCFullYear() %>
-                    </p>
-                    <p class="list-group-item"><b>Updated:</b>
-                        <%= new Date(estate.updatedAt).getUTCMonth()+1 %>/<%= new Date(estate.updatedAt).getUTCDate() %>/<%= new Date(estate.updatedAt).getUTCFullYear() %>
-                    </p>
-                </div>
+            <div class="list-group">
+                <p class="list-group-item"><b>Estate:</b> <%= estate.estatename %></p>
+                <p class="list-group-item"><b>Gross Area:</b> <%= estate.area %> sq feet</p>
+                <p class="list-group-item"><b>Rent:</b> $<%= estate.rent %></p>
+                <p class="list-group-item"><b>Bedrooms:</b> <%= estate.roomnum %></p>
+                <p class="list-group-item"><b>Expected Tenants:</b> <%= estate.tenants %></p>
+                <p class="list-group-item"><b>Created:</b>
+                    <%= new Date(estate.createdAt).getUTCMonth()+1 %>/<%= new Date(estate.createdAt).getUTCDate() %>/<%= new Date(estate.createdAt).getUTCFullYear() %>
+                </p>
+                <p class="list-group-item"><b>Updated:</b>
+                    <%= new Date(estate.updatedAt).getUTCMonth()+1 %>/<%= new Date(estate.updatedAt).getUTCDate() %>/<%= new Date(estate.updatedAt).getUTCFullYear() %>
+                </p>
+            </div>
+
+            <button type="button" class="btn btn-success" href="/user/myrental">Co-Rent</button>
         </div>
     </div>
 </div>
