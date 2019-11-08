@@ -4,7 +4,7 @@
         <td><%= model.id %></td>
         <td><a href="/estate/view/<%= model.id %>"><%= model.title %></a></td>
         <td><%= model.estatename %></td>
-        <td><a href="/estate/update/<%= model.id %>">Occupants</a></td>
+        <td><a href="/user/<%= model.id %>/occupant">Occupants</a></td>
         <td><a href="/estate/update/<%= model.id %>">Edit</a></td>
         <td>
             <button type="button" class="btn btn-danger" onclick="deleteEstate('<%= model.id %>')">Delete</button>
@@ -15,8 +15,6 @@
 
 <script>
     async function deleteEstate(id) {
-        var dr = document.getElementById("deleteResult");
-
         var r = confirm("Confirm Delete?");
 
         if (r) {

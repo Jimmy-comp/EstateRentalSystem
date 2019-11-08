@@ -20,7 +20,61 @@
                 </p>
             </div>
 
-            <button type="button" class="btn btn-success" href="/user/myrental">Co-Rent</button>
+            <div>
+                <% if( req.session.role == "user") { %>
+                <% if(  button == 0) { %>
+                <button type="button" class="btn btn-success" onclick="addCorent('<%= estate.id %>')">Co-rent</button>
+                <% } else if ( button == 1){ %>
+                <button type="button" class="btn btn-success" onclick="removeEstate('<%= estate.id %>')">Move Out</button>
+                <% } %>
+                <% } %>
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+    async function addCorent(id) {
+        var r = confirm("Confirm to Add Co-rent?");
+
+        if (r) {
+            var response = await fetch("/user/" + id + "/supervises/", {
+                method: "POST",
+                credentials: 'same-origin',
+            });
+
+            if (response.ok) {
+                var data = await response.json();
+                alert(data.message);
+                window.location = data.url;
+            } else {
+                alert(response.status + ": " + response.statusText);
+            }
+        } else {
+            alert("cancelled");
+        }
+    };
+</script>
+
+<script>
+        async function removeEstate(id) {
+            var r = confirm("Confirm to Remove Estate?");
+    
+            if (r) {
+                var response = await fetch("/user/" + id + "/supervises/", {
+                    method: "DELETE",
+                    credentials: 'same-origin',
+                });
+    
+                if (response.ok) {
+                    var data = await response.json();
+                    alert(data.message);
+                    window.location = data.url;
+                } else {
+                    alert(response.status + ": " + response.statusText);
+                }
+            } else {
+                alert("cancelled");
+            }
+        };
+    </script>

@@ -19,7 +19,13 @@ module.exports = {
 
         var models = await Estate.find();
 
-        return res.view('estate/create'), { estates: models };
+        // return res.view('estate/create'), { estates: models };
+        if (req.wantsJSON) {
+            return res.json({ message: "Estate created.", url: '/' });    // for ajax request
+        } else {
+            return res.redirect('/');           // for normal request
+        }
+
     },
 
     // json function
@@ -52,9 +58,17 @@ module.exports = {
 
         var model = await Estate.findOne(req.params.id);
 
-        if (!model) return res.notFound();
+        const thatEstate = await Estate.findOne(req.params.id).populate("viewFrom", {id: req.session.userid});
 
-        return res.view('estate/view', { estate: model });
+        if (!thatEstate) return res.notFound();
+
+        if(!thatEstate.viewFrom.length) {
+            return res.view('estate/view', { estate: model, button: 0 });
+        } else {
+            return res.view('estate/view', { estate: model, button: 1 });
+        }
+
+        
     },
 
     // action - admin
@@ -155,7 +169,7 @@ module.exports = {
 
         if (!model) return res.notFound();
 
-        return res.json(model);
+        return res.json(model.username);
 
     },
 };

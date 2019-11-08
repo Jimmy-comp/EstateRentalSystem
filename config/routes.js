@@ -61,6 +61,16 @@ module.exports.routes = {
   //rental relationship
   'GET /estate/:id/viewFrom': 'EstateController.populate',
   'GET /user/:id/supervises': 'UserController.populate',
-  'POST /user/:id/supervises/add/:fk': 'UserController.add',
-  'POST /user/:id/supervises/remove/:fk': 'UserController.remove',
+
+  //co-rent
+  'POST /user/:id/supervises': 'UserController.add',
+
+  //move out
+  'DELETE /user/:id/supervises': 'UserController.remove',
+
+  //who rent estate
+  'GET /user/:id/occupant': 'UserController.occupants',
+
+  //show my rental
+  'GET /user/myrental': 'UserController.myrental',
 };

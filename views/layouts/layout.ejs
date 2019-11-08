@@ -56,7 +56,7 @@
 
           <% if(req.session.role == "user"){ %>
           <li class="nav-item">
-            <a class="nav-link" href="#">My Rentals</a>
+            <a class="nav-link" href="/user/myrental">My Rentals</a>
           </li>
           <% } else if(req.session.role == "admin") { %>
           <li class="nav-item">
@@ -67,6 +67,7 @@
           </li>
           <% } %>
         </ul>
+        
         <form class="form-inline">
           <% if(req.session.username){ %>
           <label class="mr-sm-2">Hi, <%= req.session.username %>. (</label>

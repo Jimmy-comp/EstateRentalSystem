@@ -19,14 +19,14 @@ module.exports = {
 
         if (!match) return res.status(401).send("Wrong Password");
 
-
         req.session.regenerate(function (err) {
-
             if (err) return res.serverError(err);
 
             req.session.username = user.username;
 
             req.session.role = user.role;
+
+            req.session.userid = user.id;
 
             sails.log("[Session] ", req.session);
 
@@ -58,33 +58,58 @@ module.exports = {
     },
 
     add: async function (req, res) {
-        if (!await User.findOne(req.params.id)) return res.notFound();
+        if (!await User.findOne(req.session.userid)) return res.notFound();
 
-        const thatEstate = await Estate.findOne(req.params.fk).populate("viewFrom", { id: req.params.id });
+        const thatEstate = await Estate.findOne(req.params.id).populate("viewFrom", { id: req.session.userid });
 
         if (!thatEstate) return res.notFound();
 
         if (thatEstate.viewFrom.length)
             return res.status(409).send("Already added.");   // conflict
 
-        await User.addToCollection(req.params.id, "supervises").members(req.params.fk);
+        await User.addToCollection(req.session.userid, "supervises").members(req.params.id);
 
-        return res.ok('Operation completed.');
+        if (req.wantsJSON) {
+            return res.json({ message: "Add Co-rent Successfully.", url: '/' });    // for ajax request
+        } else {
+            return res.redirect('/');           // for normal request
+        }
     },
 
     remove: async function (req, res) {
-        if (!await User.findOne(req.params.id)) return res.notFound();
+        if (!await User.findOne(req.session.userid)) return res.notFound();
 
-        const thatEstate = await Estate.findOne(req.params.fk).populate("viewFrom", { id: req.params.id });
+        const thatEstate = await Estate.findOne(req.params.id).populate("viewFrom", { id: req.session.userid });
 
         if (!thatEstate) return res.notFound();
 
         if (!thatEstate.viewFrom.length)
             return res.status(409).send("Nothing to delete.");    // conflict
 
-        await User.removeFromCollection(req.params.id, "supervises").members(req.params.fk);
+        await User.removeFromCollection(req.session.userid, "supervises").members(req.params.id);
 
-        return res.ok('Operation completed.');
+        if (req.wantsJSON) {
+            return res.json({ message: "Remove Successfully.", url: '/' });    // for ajax request
+        } else {
+            return res.redirect('/');           // for normal request
+        }
+    },
+
+    occupants: async function (req, res) {
+        var model = await Estate.findOne(req.params.id).populate("viewFrom");
+
+        if(!model) return res.notFound();
+
+        // return res.json(model.viewFrom);
+        return res.view('user/occupants', {estate: model.viewFrom});
+    },
+
+    myrental: async function (req, res) {
+        var model = await User.findOne(req.session.userid).populate("supervises");
+
+        if(!model) return res.notFound();
+
+        return res.view('user/myrental', {estate: model.supervises});
     },
 };
 
