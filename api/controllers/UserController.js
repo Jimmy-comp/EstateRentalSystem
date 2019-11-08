@@ -62,10 +62,16 @@ module.exports = {
 
         const thatEstate = await Estate.findOne(req.params.id).populate("viewFrom", { id: req.session.userid });
 
+        const count = await Estate.findOne(req.params.id).populate("viewFrom");
+
         if (!thatEstate) return res.notFound();
 
         if (thatEstate.viewFrom.length)
-            return res.status(409).send("Already added.");   // conflict
+            return res.json({message: "Already added.", url: '/'});   // conflict
+
+        if (count.viewFrom.length >= thatEstate.tenants) {
+            return res.json({message: "The estate has full!!!", url: '/'}); // conflict
+        }
 
         await User.addToCollection(req.session.userid, "supervises").members(req.params.id);
 
@@ -74,6 +80,7 @@ module.exports = {
         } else {
             return res.redirect('/');           // for normal request
         }
+
     },
 
     remove: async function (req, res) {
@@ -98,18 +105,18 @@ module.exports = {
     occupants: async function (req, res) {
         var model = await Estate.findOne(req.params.id).populate("viewFrom");
 
-        if(!model) return res.notFound();
+        if (!model) return res.notFound();
 
         // return res.json(model.viewFrom);
-        return res.view('user/occupants', {estate: model.viewFrom});
+        return res.view('user/occupants', { estate: model.viewFrom });
     },
 
     myrental: async function (req, res) {
         var model = await User.findOne(req.session.userid).populate("supervises");
 
-        if(!model) return res.notFound();
+        if (!model) return res.notFound();
 
-        return res.view('user/myrental', {estate: model.supervises});
+        return res.view('user/myrental', { estate: model.supervises });
     },
 };
 

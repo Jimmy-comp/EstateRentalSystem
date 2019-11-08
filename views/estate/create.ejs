@@ -7,7 +7,7 @@
                 <label>Property title:</label>
                 <input type="text" class="form-control" name="Estate[title]" required>
             </div>
-  
+
             <div class="form-group">
                 <label>Estate:</label><br>
                 <select id="estate" class="form-control" name="Estate[estatename]">
@@ -57,25 +57,24 @@
 </form>
 
 <script>
-        async function createForm(oFormElement) {
-            var response = await fetch(oFormElement.action, {
-                method: oFormElement.method,
-                credentials: 'same-origin',
-                body: new FormData(oFormElement),
-            });
+    async function createForm(oFormElement) {
+        var response = await fetch(oFormElement.action, {
+            method: oFormElement.method,
+            credentials: 'same-origin',
+            body: new FormData(oFormElement),
+        });
 
-            var r = confirm("Confirm Created?")
-    
-            if (r) {
-                var data = await response.json();   // for res.ok() or res.json()
-                alert(data.message);
-                window.location = data.url;
-                location.assign('/');
-            } else if (response.status == 401) {
-                var data = await response.text();   // for res.send()
-                alert(data);
-            } else {
-                alert(response.statusText);
-            }
-        };
-    </script>
+        var r = confirm("Confirm Created?")
+
+        if (r) {
+            var data = await response.json();   // for res.ok() or res.json()
+            alert(data.message);
+            window.location = data.url;
+        } else if (response.status == 401) {
+            var data = await response.text();   // for res.send()
+            alert(data);
+        } else {
+            alert(response.statusText);
+        }
+    };
+</script>

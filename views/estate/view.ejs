@@ -18,16 +18,17 @@
                 <p class="list-group-item"><b>Updated:</b>
                     <%= new Date(estate.updatedAt).getUTCMonth()+1 %>/<%= new Date(estate.updatedAt).getUTCDate() %>/<%= new Date(estate.updatedAt).getUTCFullYear() %>
                 </p>
-            </div>
 
-            <div>
+
                 <% if( req.session.role == "user") { %>
                 <% if(  button == 0) { %>
-                <button type="button" class="btn btn-success" onclick="addCorent('<%= estate.id %>')">Co-rent</button>
+                <button type="button" class="btn btn-success " onclick="addCorent('<%= estate.id %>')">Co-rent</button>
                 <% } else if ( button == 1){ %>
-                <button type="button" class="btn btn-success" onclick="removeEstate('<%= estate.id %>')">Move Out</button>
+                <button type="button" class="btn btn-success" onclick="removeEstate('<%= estate.id %>')">Move
+                    Out</button>
                 <% } %>
                 <% } %>
+
             </div>
         </div>
     </div>
@@ -57,24 +58,24 @@
 </script>
 
 <script>
-        async function removeEstate(id) {
-            var r = confirm("Confirm to Remove Estate?");
-    
-            if (r) {
-                var response = await fetch("/user/" + id + "/supervises/", {
-                    method: "DELETE",
-                    credentials: 'same-origin',
-                });
-    
-                if (response.ok) {
-                    var data = await response.json();
-                    alert(data.message);
-                    window.location = data.url;
-                } else {
-                    alert(response.status + ": " + response.statusText);
-                }
+    async function removeEstate(id) {
+        var r = confirm("Confirm to Remove Estate?");
+
+        if (r) {
+            var response = await fetch("/user/" + id + "/supervises/", {
+                method: "DELETE",
+                credentials: 'same-origin',
+            });
+
+            if (response.ok) {
+                var data = await response.json();
+                alert(data.message);
+                window.location = data.url;
             } else {
-                alert("cancelled");
+                alert(response.status + ": " + response.statusText);
             }
-        };
-    </script>
+        } else {
+            alert("cancelled");
+        }
+    };
+</script>
