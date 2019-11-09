@@ -1,5 +1,5 @@
 <!--create.ejs-->
-<form action="/estate/create" method="POST" onsubmit="createForm(this);return false">
+<form action="/estate/create" method="POST">
     <h4>Property Create Form</h4>
     <div class="row">
         <div class="col-md-6 col-sm-1">
@@ -56,7 +56,7 @@
     </div>
 </form>
 
-<script>
+<!-- <script>
     async function createForm(oFormElement) {
         var response = await fetch(oFormElement.action, {
             method: oFormElement.method,
@@ -77,4 +77,4 @@
             alert(response.statusText);
         }
     };
-</script>
+</script> -->
