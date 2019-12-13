@@ -36,13 +36,6 @@ module.exports = {
         return res.json(estates);
     },
 
-    // // action - index
-    // index: async function (req, res) {
-    //     var models = await Estate.find();
-    //     return res.view('estate/index', { estates: models });
-
-    // },
-
     // action - homepage
     homepage: async function (req, res) {
         var models = await Estate.find({

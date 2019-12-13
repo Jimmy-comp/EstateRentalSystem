@@ -67,10 +67,10 @@ module.exports = {
         if (!thatEstate) return res.notFound();
 
         if (thatEstate.viewFrom.length)
-            return res.json({message: "Already added.", url: '/'});   // conflict
+            return res.status(409).json({message: "Already added.", url: '/'});   // conflict
 
         if (count.viewFrom.length >= thatEstate.tenants) {
-            return res.json({message: "The estate has full!!!", url: '/'}); // conflict
+            return res.status(409).json({message: "The estate has full!!!", url: '/'}); // conflict
         }
 
         await User.addToCollection(req.session.userid, "supervises").members(req.params.id);
@@ -116,7 +116,19 @@ module.exports = {
 
         if (!model) return res.notFound();
 
-        return res.view('user/myrental', { estate: model.supervises });
+        if(req.wantsJSON){
+            return res.json(model.supervises);
+        } else {
+            return res.view('user/myrental', { estate: model.supervises });
+        }
+        
+    },
+
+    json: async function (req, res) {
+
+        var estates = await Estate.find();
+    
+        return res.json(estates);
     },
 };
 
