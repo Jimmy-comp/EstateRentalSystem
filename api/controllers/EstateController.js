@@ -51,17 +51,24 @@ module.exports = {
 
         var model = await Estate.findOne(req.params.id);
 
-        const thatEstate = await Estate.findOne(req.params.id).populate("viewFrom", {id: req.session.userid});
+        const thatEstate = await Estate.findOne(req.params.id).populate("viewFrom", { id: req.session.userid });
 
         if (!thatEstate) return res.notFound();
 
-        if(!thatEstate.viewFrom.length) {
-            return res.view('estate/view', { estate: model, button: 0 });
+        if (req.wantsJSON) {
+            if (!thatEstate.viewFrom.length) {
+                return res.json({ estate: model, button: 0 });
+            } else {
+                return res.json({ estate: model, button: 1 });
+            }
         } else {
-            return res.view('estate/view', { estate: model, button: 1 });
+            if (!thatEstate.viewFrom.length) {
+                return res.view('estate/view', { estate: model, button: 0 });
+            } else {
+                return res.view('estate/view', { estate: model, button: 1 });
+            }
         }
 
-        
     },
 
     // action - admin

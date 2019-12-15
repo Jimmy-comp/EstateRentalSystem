@@ -40,17 +40,17 @@ module.exports.bootstrap = async function () {
     // etc.
   ]);
 
-  const estate1 = await Estate.findOne({ title: "The Popular Part", estatename: "City Garden" });
-  const estate2 = await Estate.findOne({ title: "全港最貴", estatename: "Heng Fa Chuen" });
-  const user3 = await User.findOne({ username: "JJLin" });
-  const user1 = await User.findOne({ username: "Doramon" });
-  const user2 = await User.findOne({ username: "Jimmy" });
+  // const estate1 = await Estate.findOne({ title: "The Popular Part", estatename: "City Garden" });
+  // const estate2 = await Estate.findOne({ title: "全港最貴", estatename: "Heng Fa Chuen" });
+  // const user3 = await User.findOne({ username: "JJLin" });
+  // const user1 = await User.findOne({ username: "Doramon" });
+  // const user2 = await User.findOne({ username: "Jimmy" });
 
 
   // // await User.addToCollection(admin.id, 'supervises').members([estate1.id, estate2.id]);
-  await User.addToCollection(user1.id, 'supervises').members(estate1.id);
-  await User.addToCollection(user2.id, 'supervises').members(estate2.id); 
-  await User.addToCollection(user3.id, 'supervises').members(estate2.id);
+  // await User.addToCollection(user1.id, 'supervises').members(estate1.id);
+  // await User.addToCollection(user2.id, 'supervises').members(estate2.id); 
+  // await User.addToCollection(user3.id, 'supervises').members(estate2.id);
 
   return;
 };
