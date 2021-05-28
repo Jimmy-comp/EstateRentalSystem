@@ -52,5 +52,5 @@ module.exports.bootstrap = async function () {
   await User.addToCollection(user2.id, 'supervises').members(estate2.id); 
   await User.addToCollection(user3.id, 'supervises').members(estate2.id);
 
-  return;
+  
 };
