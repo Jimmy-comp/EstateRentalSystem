@@ -107,7 +107,7 @@ module.exports = {
 
         if (!model) return res.notFound();
 
-        return res.view('user/occupants', { estate: model.viewFrom });
+        return res.view('user/occupants', { estate: model });
     },
 
     myrental: async function (req, res) {

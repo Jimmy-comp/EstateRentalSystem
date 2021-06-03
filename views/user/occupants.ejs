@@ -1,7 +1,44 @@
-<table class="table">
-    <% estate.forEach( function(model) { %>
-    <tr>
-        <td><%= model.username %></td>
-    </tr>
-    <% }); %>
-</table>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-5 card">
+            <img class="card-img-top" style="width: 100%; height: 100%" src="<%= estate.url %>" alt="Estate image" />
+            <div class="card-body">
+                <div class="h5" style="text-align: center;">
+                    <p><strong><%= estate.title %></strong></p>
+                    <p><strong><%= estate.estatename %></strong></p>
+                   
+                </div>
+                <div class="list-group">
+                    <p class="list-group-item"><strong>District:</strong>
+                        <%= estate.district %>
+                    </p>
+                    <p class="list-group-item"><strong>Bedroom Number:</strong>
+                        <%= estate.roomnum %>
+                    </p>
+                    <p class="list-group-item"><strong>Gross Area:</strong>
+                        <%= estate.area %> sq feet
+                    </p>
+                    <p class="list-group-item"><strong>Rent:</strong> $<%= estate.rent %>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-7">
+            <table class="table">
+                <tr style="font-size: 25px;">
+                    <th>
+                        Tenant Name
+                    </th>
+                </tr>
+                <% estate.viewFrom.forEach( function(model) { %>
+                    <tr style="font-size: 22px;">
+                        <td>
+                            <%= model.username %>
+                        </td>
+                    </tr>
+                    <% }); %>
+            </table>
+        </div>
+    </div>
+</div>

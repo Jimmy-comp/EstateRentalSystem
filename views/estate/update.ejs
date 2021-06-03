@@ -1,6 +1,6 @@
 <!--update.ejs-->
 <form action="/estate/update/<%= estate.id %>" method="POST">
-    <h4>Property Create Form</h4>
+    <h4 style="font-size: 28px; text-align: center; margin-bottom: 20px; font-weight: bold;">Property Update Form</h4>
     <div class="row">
         <div class="col-md-6 col-sm-1">
             <div class="form-group">
@@ -9,13 +9,9 @@
             </div>
 
             <div class="form-group">
-                <label>Estate:</label><br>
-                <select id="estate" class="form-control" name="Estate[estatename]">
-                    <option value="dummy">Select estate here</option>
-                    <option value="Bel-Air Residence">Bel-Air Residence</option>
-                    <option value="City Garden">City Garden</option>
-                    <option value="Heng Fa Chuen">Heng Fa Chuen</option>
-                </select>
+                <label>Estate:</label>
+                <input type="text" class="form-control" name="Estate[estatename]" value="<%= estate.estatename %>"
+                    required>
             </div>
 
             <div class="form-group">
@@ -32,6 +28,30 @@
         </div>
 
         <div class="col-md-6 col-sm-1">
+            <div class="form-group">
+                <label>District:</label>
+
+                <select id="estate" class="form-control" name="Estate[district]">
+                    <option value="">Select district here</option>
+                    <optgroup label="Hong Kong Island">
+                        <option value="Chai Wan">Chai Wan</option>
+                        <option value="North Point">North Point</option>
+                        <option value="Southern District">Southern District</option>
+                    </optgroup>
+
+                    <optgroup label="Kowloon">
+                        <option value="Chai Wan">Monk Kok</option>
+                        <option value="North Point">Jordan</option>
+                        <option value="Southern District">Prince Edward</option>
+                    </optgroup>
+
+                    <optgroup label="New Territories">
+                        <option value="Tsuen Wan">Tsuen Wan</option>
+                    </optgroup>
+                </select>
+
+            </div>
+
             <div class="form-group">
                 <label>Image URL:</label>
                 <input type="text" class="form-control" name="Estate[url]" value="<%= estate.url %>" required>
@@ -53,18 +73,37 @@
                 <input type="checkbox" class="form-check-input" name="Estate[highlightprop]" value="true">
                 <label class="form-check-label">Highlighted Property</label>
             </div>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-md-6 col-sm-1">
+            <button type="button" class="btn btn-danger" onclick="deleteEstate('<%= estate.id %>')">Delete</button>
+        </div>
+
+        <div class="col-md-6 col-sm-1">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </div>
 </form>
 
-<form action="/estate/delete/<%= estate.id %>" method="POST">
-    <div class="form-group">
-        <button action="delete" class="btn btn-danger">Delete</button>
-    </div>
-</form>
-
 <script>
-    document.querySelector('option[value="<%=estate.estatename%>"]').selected = true;
+    document.querySelector('option[value="<%=estate.district%>"]').selected = true;
+    document.querySelector('input[type="checkbox"]').checked =  "<%= estate.highlightprop %>" == "true";
+
+    async function deleteEstate(id) {
+        var r = confirm("Confirm Delete?");
+
+        if (r) {
+            var response = await fetch("/estate/" + id, {
+                method: "DELETE",
+            });
+
+            console.log(response);
+
+            location.assign("/estate/admin");
+        } else {
+            alert("cancelled");
+        }
+    };
 </script>

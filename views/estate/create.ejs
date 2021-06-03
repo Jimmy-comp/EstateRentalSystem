@@ -1,6 +1,6 @@
 <!--create.ejs-->
 <form action="/estate/create" method="POST">
-    <h4>Property Create Form</h4>
+    <h4 style="font-size: 28px; text-align: center; margin-bottom: 20px; font-weight: bold;">Property Create Form</h4>
     <div class="row">
         <div class="col-md-6 col-sm-1">
             <div class="form-group">
@@ -8,15 +8,31 @@
                 <input type="text" class="form-control" name="Estate[title]" required>
             </div>
 
+            <div class="form-group">
+                <label>Estate:</label>
+                <input type="text" class="form-control" name="Estate[estatename]" required>
+            </div>
+
             <div class="form-group row">
                 <label class="col-sm-2">District:</label>
                 <div class="col-sm-10">
                     <select id="estate" class="form-control" name="Estate[district]">
                         <option value="">Select district here</option>
-                        <option value="Chai Wan">Chai Wan</option>
-                        <option value="North Point">North Point</option>
-                        <option value="Southern District">Southern District</option>
-                        <option value="Tsuen Wan">Tsuen Wan</option>
+                        <optgroup label="Hong Kong Island">
+                            <option value="Chai Wan">Chai Wan</option>
+                            <option value="North Point">North Point</option>
+                            <option value="Southern District">Southern District</option>
+                        </optgroup>
+
+                        <optgroup label="Kowloon">
+                            <option value="Chai Wan">Monk Kok</option>
+                            <option value="North Point">Jordan</option>
+                            <option value="Southern District">Prince Edward</option>
+                        </optgroup>
+
+                        <optgroup label="New Territories">
+                            <option value="Tsuen Wan">Tsuen Wan</option>
+                        </optgroup>
                     </select>
                 </div>
             </div>

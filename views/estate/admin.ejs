@@ -38,14 +38,11 @@
         if (r) {
             var response = await fetch("/estate/" + id, {
                 method: "DELETE",
-                // credentials: 'same-origin',
             });
 
             console.log(response);
 
-            alert(response.status + ": " + response.statusText);
-
-            // location.assign('/');
+            location.reload();
         } else {
             alert("cancelled");
         }
