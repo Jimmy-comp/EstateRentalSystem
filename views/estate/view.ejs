@@ -1,37 +1,57 @@
-<div class="card">
-    <h1 style="color:slateblue;"><%= estate.title %></h1>
-    <div class="row">
-        <div class="col-sm-1 col-md-6">
-            <img src="<%= estate.url%>" width="500" height="350" />
-        </div>
+<div class="card pb-6 mb-6" >
+    <div class="container-fluid">
+        <h1 style="color:slateblue; font-weight: bold; font-size: 28px; margin: 10px;">
+            <%= estate.title %>
+        </h1>
 
-        <div class="col-sm-1 col-md-6">
-            <div class="list-group">
-                <p class="list-group-item"><b>Estate:</b> <%= estate.estatename %></p>
-                <p class="list-group-item"><b>Gross Area:</b> <%= estate.area %> sq feet</p>
-                <p class="list-group-item"><b>Rent:</b> $<%= estate.rent %></p>
-                <p class="list-group-item"><b>Bedrooms:</b> <%= estate.roomnum %></p>
-                <p class="list-group-item"><b>Expected Tenants:</b> <%= estate.tenants %></p>
-                <p class="list-group-item"><b>Created:</b>
-                    <%= new Date(estate.createdAt).getUTCMonth()+1 %>/<%= new Date(estate.createdAt).getUTCDate() %>/<%= new Date(estate.createdAt).getUTCFullYear() %>
-                </p>
-                <p class="list-group-item"><b>Updated:</b>
-                    <%= new Date(estate.updatedAt).getUTCMonth()+1 %>/<%= new Date(estate.updatedAt).getUTCDate() %>/<%= new Date(estate.updatedAt).getUTCFullYear() %>
-                </p>
+        <div class="row">
+            <div class="col-sm-1 col-md-6">
+                <img src="<%= estate.url%>" style="width: 100%;" />
+            </div>
+
+            <div class="col-sm-1 col-md-6" >
+                <div class="list-group">
+                    <p class="list-group-item"><b>Estate:</b>
+                        <%= estate.estatename %>
+                    </p>
+                    <p class="list-group-item"><b>Gross Area:</b>
+                        <%= estate.area %> sq feet
+                    </p>
+                    <p class="list-group-item"><b>Rent:</b> $<%= estate.rent %>
+                    </p>
+                    <p class="list-group-item"><b>Bedrooms:</b>
+                        <%= estate.roomnum %>
+                    </p>
+                    <p class="list-group-item"><b>Expected Tenants:</b>
+                        <%= estate.tenants %>
+                    </p>
+                    <p class="list-group-item"><b>Created:</b>
+                        <%= new Date(estate.createdAt).getUTCMonth()+1 %>/<%= new Date(estate.createdAt).getUTCDate() %>
+                                /<%= new Date(estate.createdAt).getUTCFullYear() %>
+                    </p>
+                    <p class="list-group-item"><b>Updated:</b>
+                        <%= new Date(estate.updatedAt).getUTCMonth()+1 %>/<%= new Date(estate.updatedAt).getUTCDate() %>
+                                /<%= new Date(estate.updatedAt).getUTCFullYear() %>
+                    </p>
 
 
-                <% if( req.session.role == "user") { %>
-                <% if(  button == 0) { %>
-                <button type="button" class="btn btn-success " onclick="addCorent('<%= estate.id %>')">Co-rent</button>
-                <% } else if ( button == 1){ %>
-                <button type="button" class="btn btn-success" onclick="removeEstate('<%= estate.id %>')">Move
-                    Out</button>
-                <% } %>
-                <% } %>
+                    <% if( req.session.role=="user" ) { %>
+                        <% if( button==0) { %>
+                            <button type="button" class="btn btn-success "
+                                onclick="addCorent('<%= estate.id %>')">Co-rent</button>
+                            <% } else if ( button==1){ %>
+                                <button type="button" class="btn btn-success"
+                                    onclick="removeEstate('<%= estate.id %>')">Move
+                                    Out</button>
+                                <% } %>
+                                    <% } %>
 
+                </div>
             </div>
         </div>
     </div>
+
+
 </div>
 
 <script>

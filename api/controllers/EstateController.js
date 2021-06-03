@@ -94,6 +94,7 @@ module.exports = {
             var models = await Estate.update(req.params.id).set({
                 title: req.body.Estate.title,
                 estatename: req.body.Estate.estatename,
+                district: req.body.Estate.district,
                 area: req.body.Estate.area,
                 rent: req.body.Estate.rent,
                 url: req.body.Estate.url,
@@ -131,17 +132,16 @@ module.exports = {
         const qPage = Math.max(req.query.page - 1, 0) || 0;
         const numOfItemsPerPage = 2;
 
-        const qEstate = req.query.estatename || "";
+        const qDistrict = req.query.district || "";
         const qRoomnum = parseInt(req.query.roomnum);
         const qMaxArea = parseInt(req.query.maxarea) || 2000;
         const qMinArea = parseInt(req.query.minarea) || 0;
         const qMinRent = parseInt(req.query.minrent) || 0;
         const qMaxRent = parseInt(req.query.maxrent) || 30000;
 
-        var range = { estatename: { contains: qEstate }, area: { ">=": qMinArea, "<=": qMaxArea }, rent: { ">=": qMinRent, "<=": qMaxRent } };
+        var range = { district: { contains: qDistrict }, area: { ">=": qMinArea, "<=": qMaxArea }, rent: { ">=": qMinRent, "<=": qMaxRent } };
 
         if (isNaN(qRoomnum)) {
-
             var model = await Estate.find({
                 where: range,
                 limit: numOfItemsPerPage,
@@ -151,7 +151,7 @@ module.exports = {
         } else {
             range.roomnum = qRoomnum;
 
-            var model = await Estate.find({
+            model = await Estate.find({
                 where: range,
                 limit: numOfItemsPerPage,
                 skip: numOfItemsPerPage * qPage,
@@ -161,7 +161,14 @@ module.exports = {
 
         var numOfPage = Math.ceil(await Estate.count({ where: range }) / numOfItemsPerPage);
 
-        return res.view('estate/search', { estate: model, count: numOfPage });
+        if (req.wantsJSON) {
+            return res.json({ model: model, count: numOfPage });
+        } else {
+
+
+            return res.view('estate/search', { estate: model, count: numOfPage });
+        }
+
     },
 
     populate: async function (req, res) {

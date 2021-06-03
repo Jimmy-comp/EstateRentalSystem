@@ -1,7 +1,7 @@
 <div class="row">
   <% estates.forEach( function(model) { %>
   <div class="col-md-6 card">
-    <a href="/estate/view/<%= model.id %>" class="h2"><%= model.title %></a>
+    <a href="/estate/view/<%= model.id %>" class="h2" style="margin-top: 20px;"><%= model.title %></a>
 
     <div class="row">
       <div class="col-md-6">
@@ -9,7 +9,7 @@
       </div>
 
       <div class="col-md-6">
-        <div class="list-group">
+        <div class="list-group" style="margin-bottom: 20px;">
           <p class="list-group-item"><b>Estate:</b> <%= model.estatename %></p>
           <p class="list-group-item"><b>Gross Area:</b> <%= model.area %> sq feet</p>
           <p class="list-group-item"><b>Rent:</b> $<%= model.rent %></p>

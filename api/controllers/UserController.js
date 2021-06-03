@@ -107,7 +107,6 @@ module.exports = {
 
         if (!model) return res.notFound();
 
-        // return res.json(model.viewFrom);
         return res.view('user/occupants', { estate: model.viewFrom });
     },
 

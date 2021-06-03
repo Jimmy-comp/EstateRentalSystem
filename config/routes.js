@@ -69,7 +69,7 @@ module.exports.routes = {
   'DELETE /user/:id/supervises': 'UserController.remove',
 
   //who rent estate
-  'GET /user/:id/occupant': 'UserController.occupants',
+  'GET /user/occupant': 'UserController.occupants',
 
   //show my rental
   'GET /user/myrental': 'UserController.myrental',

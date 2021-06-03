@@ -1,100 +1,243 @@
 <!--paginate.ejs-->
-<div class="row"> 
-    <div class="col-md-8 col-sm-1">
-        <div class="row">
-            <% estate.forEach( function(model) { %>
-            <div class="col-sm-1 col-md-6 card">
-                <img class="card-img-top" style="width: 350px; height: 200px" src="<%= model.url%>" alt="Estate image"/>
-                <div class="card-body">
-                    <div style="text-align: center">
-                        <a class=" h5" href="/estate/view/<%= model.id %>">
-                            <%= model.title %> </a>
-                    </div>
-                    <div class="list-group">
-                        <p class="list-group-item"><strong>Estate:</strong> <%= model.estatename %></p>
-                        <p class="list-group-item"><strong>Gross Area:</strong> <%= model.area %> sq feet</p>
-                        <p class="list-group-item"><strong>Rent:</strong> $<%= model.rent %></p>
-                    </div>
-                </div>
-            </div>
-            <% }); %>
+<div class="row">
+    <div class="col-md-6 col-sm-1">
+        <div class="row" id="search">
+            
         </div>
     </div>
 
-    <% const current = parseInt(req.query.page) || 1; %>
+    <% const current=parseInt(req.query.page) || 1; %>
 
-    <div class="form-group col-md-4 col-sm-1">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="/estate/search/?page=<%= Math.max(current-1, 1) %>">Previous</a>
-                </li>
+        <div class="form-group col-md-6 col-sm-1">
+            <h2 style="font-size: 28px; text-align: center; margin-bottom: 20px; font-weight: bold;">Property Search
+            </h2>
 
-                <% for (i = 1; i <= count; i++) { %>
-                <li class="page-item">
-                    <a class="page-link" href="/estate/search/?page=<%= i %>"><%= i %></a>
-                </li>
-                <% } %>
+            <form action="/estate/search" method="GET"
+                onsubmit="setPagination(2, parseInt(document.getElementById('currentLink').innerHTML)*2);return false"
+                id="form">
+                <nav class="pagination" role="navigation" aria-label="pagination">
+                    <a class="pagination-previous" id="previousButton">Previous page</a>
+                    <a class="pagination-next" id="nextButton">Next page</a>
+                    <ul class="pagination-list">
+                        <li>
+                            <a class="pagination-link" id="firstLink">1</a>
+                        </li>
+                        <li>
+                            <span class="pagination-ellipsis">&hellip;</span>
+                        </li>
+                        <li>
+                            <a class="pagination-link" id="previousLink">45</a>
+                        </li>
+                        <li>
+                            <a class="pagination-link is-current" id="currentLink">46</a>
+                        </li>
+                        <li>
+                            <a class="pagination-link" id="nextLink">47</a>
+                        </li>
+                        <li>
+                            <span class="pagination-ellipsis">&hellip;</span>
+                        </li>
+                        <li>
+                            <a class="pagination-link" id="lastLink">86</a>
+                        </li>
+                    </ul>
+                </nav>
 
-                <li class="page-item">
-                    <a class="page-link" href="/estate/search/?page=<%= Math.min(current+1, count) %>">Next</a>
-                </li>
-            </ul>
-        </nav>
-
-        <form action="/estate/search" method="GET">
-            <h2>Property Search</h2>
-
-            <div class="form-group row">
-                <label class="col-sm-2">Estate:</label>
-                <div class="col-sm-10">
-                    <select id="estate" class="form-control" name="estatename">
-                        <option value="dummy">Select estate here</option>
-                        <option value="Bel-Air Residence">Bel-Air Residence</option>
-                        <option value="City Garden">City Garden</option>
-                        <option value="Heng Fa Chuen">Heng Fa Chuen</option>
-                        <option value="Gothan City">Gothan City</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class="col-sm-3">Bedrooms:</label>
-                <div class="col-sm-9">
-                    <input type="number" class="form-control" name="roomnum" min="0">
-                </div>
-            </div>
-
-            <div class="form group">
-                <label>Area (Sq feet):</label>
-                <div class="row">
-                    <label class="col-sm-2">Min:</label>
-                    <div class="col-sm-4">
-                        <input type="number" class="form-control" name="minarea" placeholder="0" min="0" max="2000">
-                    </div>
-                    <label class="col-sm-2">Max:</label>
-                    <div class="col-sm-4">
-                        <input type="number" class="form-control" name="maxarea" placeholder="2000" min="0" max="2000">
+                <div class="form-group row">
+                    <label class="col-sm-2">District:</label>
+                    <div class="col-sm-10">
+                        <select id="estate" class="form-control" name="district">
+                            <option value="">Select district here</option>
+                            <option value="Chai Wan">Chai Wan</option>
+                            <option value="North Point">North Point</option>
+                            <option value="Southern District">Southern District</option>
+                            <option value="Tsuen Wan">Tsuen Wan</option>
+                        </select>
                     </div>
                 </div>
-            </div>
 
-            <div class="form group">
-                <label><br>Rent (HK$):</label>
-                <div class="row">
-                    <label class="col-sm-2">Min:</label>
-                    <div class="col-sm-4">
-                        <input type="number" class="form-control" name="minrent" placeholder="0" min="0" max="30000">
-                    </div>
-                    <label class="col-sm-2">Max:</label>
-                    <div class="col-sm-4">
-                        <input type="number" class="form-control" name="maxrent" placeholder="30000" min="0" max="30000">
+                <div class="form-group row">
+                    <label class="col-sm-2">Bedrooms:</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" name="roomnum" min="0">
                     </div>
                 </div>
-                <br>
-            </div>
 
-            <button type="menu" class="btn btn-primary">Search</button>
-        </form>
-    </div>
+                <div class="form group">
+                    <label>Area (Sq feet):</label>
+                    <div class="row">
+                        <label class="col-sm-2">Min:</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" name="minarea" placeholder="0" min="0" max="2000">
+                        </div>
+                        <label class="col-sm-2">Max:</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" name="maxarea" placeholder="2000" min="0"
+                                max="2000">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form group">
+                    <label><br>Rent (HK$):</label>
+                    <div class="row">
+                        <label class="col-sm-2">Min:</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" name="minrent" placeholder="0" min="0"
+                                max="30000">
+                        </div>
+                        <label class="col-sm-2">Max:</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" name="maxrent" placeholder="30000" min="0"
+                                max="30000">
+                        </div>
+                    </div>
+                    <br>
+                </div>
+
+                <button type="menu" class="btn btn-primary ">Search</button>
+
+            </form>
+        </div>
 </div>
+
+<script>
+    var numPages = <%=count%>;
+    async function submitForm(oFormElement) {
+
+        var search = document.getElementById("search");
+
+        var response = await fetch(oFormElement.action + '?' + Array.from(new FormData(oFormElement).entries()).map(e => e[0] + '=' + e[1]).join('&') + '&page=' + document.getElementById('currentLink').innerHTML, {
+            method: oFormElement.method
+        });
+
+        if (response.ok) {
+            var data = await response.json();   // for res.ok() or res.json()
+            // alert(data.message);
+            // window.location = data.url;
+            var html = '';
+            numPages = data.count;
+            data.model.forEach((element) => {
+                html += `
+                    <div class="col-sm-1 col-md-6 card">
+                        <img class="card-img-top" style="width: 100%; height: 100%" src="${element.url}"
+                            alt="Estate image" />
+                        <div class="card-body">
+                            <div class="h5" style="text-align: center;">
+                                <a href="/estate/view/${element.id}" style="font-size: 28px;">
+                                    <strong>
+                                        ${element.title}
+                                    </strong>
+                                </a>
+                                <p>
+                                    <strong>
+                                        ${element.estatename}
+                                    </strong>
+                                </p>
+                            </div>
+                            <div class="list-group">
+                                <p class="list-group-item"><strong>District:</strong>
+                                    ${element.district}
+                                </p>
+                                <p class="list-group-item"><strong>Bedroom Number:</strong>
+                                    ${element.roomnum}
+                                </p>
+                                <p class="list-group-item"><strong>Gross Area:</strong>
+                                    ${element.area} sq feet
+                                </p>
+                                <p class="list-group-item"><strong>Rent:</strong> $${element.rent}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            search.innerHTML = html;
+
+        } else if (response.status == 401) {
+            var data = await response.text();   // for res.send()
+            alert(data);
+        } else {
+            alert(response.statusText);
+        }
+    };
+
+    function setPagination(limit, offset) {
+        var previousButton = document.getElementById("previousButton");
+        var nextButton = document.getElementById("nextButton");
+        var currentLink = document.getElementById("currentLink");
+        var previousLink = document.getElementById("previousLink");
+        var nextLink = document.getElementById("nextLink");
+        var firstLink = document.getElementById("firstLink");
+        var lastLink = document.getElementById("lastLink");
+
+        previousButton.onclick = function () {
+            if (offset >= limit) {
+                setPagination(2, offset - limit);
+            }
+        };
+
+        nextButton.onclick = function () {
+            if (offset + limit < numPages*limit) {
+                setPagination(2, offset + limit);
+            }
+
+        };
+
+        currentLink.onclick = function () {
+            setPagination(2, offset);
+        };
+
+        previousLink.onclick = function () {
+            setPagination(2, offset - limit);
+        };
+
+        nextLink.onclick = function () {
+            setPagination(2, offset + limit);
+        };
+
+        firstLink.onclick = function () {
+            setPagination(2, 0);
+        };
+
+        lastLink.onclick = function () {
+            setPagination(2, (numPages - 1) * limit)
+        };
+
+        // var numOfRecords = numPages;
+
+        var currentPageNumber = Math.floor(offset / limit) + 1;
+
+        previousLink.innerHTML = currentPageNumber - 1;
+        currentLink.innerHTML = currentPageNumber;
+        nextLink.innerHTML = currentPageNumber + 1;
+        lastLink.innerHTML = numPages;
+
+        // fetchPage(limit, offset);
+        submitForm(document.getElementById("form"))
+
+        console.log("Offset:"+offset+", Limit:"+limit+", numPages:"+ numPages+", CurrentPage:"+currentPageNumber);
+
+        if (currentPageNumber == 1) {
+            previousButton.setAttribute("disabled", "disabled");
+            nextButton.removeAttribute("disabled");
+            // previousButton.href = "";
+            previousLink.style.display = "none";
+            nextLink.style.display = "inline-block";
+        } else if (currentPageNumber == numPages) {
+            nextButton.setAttribute("disabled", "disabled");
+            previousButton.removeAttribute("disabled");
+            // nextButton.href = "";
+            nextLink.style.display = "none";
+            previousLink.style.display = "inline-block";
+        } else {
+            previousButton.removeAttribute("disabled");
+            nextButton.removeAttribute("disabled");
+            nextLink.style.display = "inline-block";
+            previousLink.style.display = "inline-block";
+        }
+    }
+
+    setPagination(2, 0);
+</script>

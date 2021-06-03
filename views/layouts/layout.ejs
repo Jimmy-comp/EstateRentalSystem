@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <title>Real Estate Rental System</title>
@@ -7,11 +7,11 @@
   <!-- Viewport mobile tag for sensible mobile support -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <%/* If you want to discourage search engines from indexing this site, uncomment the following line: */%>
-  <%/* <meta name="robots" content="noindex"> */%>
+  <% /* If you want to discourage search engines from indexing this site, uncomment the following line: */%>
+    <% /* <meta name="robots" content="noindex"> */%>
 
 
-  <!--
+      <!--
         Stylesheets and Preprocessors
         ==============================
 
@@ -32,50 +32,58 @@
             + Use a different or additional preprocessor, like SASS, SCSS or Stylus
     -->
 
-  <!--STYLES-->
-  <link rel="stylesheet" href="/styles/importer.css">
-  <!--STYLES END-->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <!--STYLES-->
+      <link rel="stylesheet" href="/styles/importer.css">
+      <!--STYLES END-->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+      <link rel="stylesheet" href="https://unpkg.com/buefy/dist/buefy.min.css">
+
 </head>
 
 <body>
-  <div class="container">
+  <div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand " href="/">Home</a>
+      <a class="navbar-brand " href="/">
+        <img src="/images/home_logo.png" width="50px" height="50px" alt="" />
+      </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto" style="font-size: 20px;">
           <li class="nav-item active">
-            <a class="nav-link" href="/estate/search">Search <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/estate/search">Search</a>
           </li>
 
-          <% if(req.session.role == "user"){ %>
-          <li class="nav-item">
-            <a class="nav-link" href="/user/myrental">My Rentals</a>
-          </li>
-          <% } else if(req.session.role == "admin") { %>
-          <li class="nav-item">
-            <a class="nav-link" href="/estate/create">Create</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/estate/admin">Admin</a>
-          </li>
-          <% } %>
+          <% if(req.session.role=="user" ){ %>
+            <li class="nav-item">
+              <a class="nav-link" href="/user/myrental">My Rentals</a>
+            </li>
+            <% } else if(req.session.role=="admin" ) { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/estate/create">Create</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/estate/admin">Admin</a>
+              </li>
+              <% } %>
         </ul>
-        
-        <form class="form-inline">
+
+        <form class="form-inline" style="font-size: 20px;">
           <% if(req.session.username){ %>
-          <label class="mr-sm-2">Hi, <%= req.session.username %>. (</label>
-          <a class="nav-link mr-sm-2" href="/user/logout">Logout</a>
-          <label class="mr-sm-2">)</label>
-          <% } else { %>
-          <a class="nav-link mr-sm-2" href="/user/login">Login</a>
-          <% } %>
+            <label class="mr-sm-2">Hi, <%= req.session.username %>. (</label>
+            <a class="nav-link mr-sm-2" href="/user/logout">Logout</a>
+            <label class="mr-sm-2">)</label>
+            <% } else { %>
+              <a class="nav-link mr-sm-2" href="/user/login">Login</a>
+              <% } %>
         </form>
       </div>
     </nav>
@@ -87,7 +95,9 @@
           roommates.</p>
       </div>
     </div>
+  </div>
 
+  <div class="container">
     <%- body %>
   </div>
 
