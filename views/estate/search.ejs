@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-md-6 col-sm-1">
         <div class="row" id="search">
-            
+
         </div>
     </div>
 
@@ -13,7 +13,7 @@
             </h2>
 
             <form action="/estate/search" method="GET"
-                onsubmit="setPagination(2, parseInt(document.getElementById('currentLink').innerHTML)*2);return false"
+                onsubmit="setPagination(2, (parseInt(document.getElementById('currentLink').innerHTML)-1)*2);return false"
                 id="form">
                 <nav class="pagination" role="navigation" aria-label="pagination">
                     <a class="pagination-previous" id="previousButton">Previous page</a>
@@ -103,7 +103,7 @@
 
 <script>
     var numPages = <%=count%>;
-    async function submitForm(oFormElement) {
+    async function submitForm(oFormElement, callback) {
 
         var search = document.getElementById("search");
 
@@ -155,6 +155,8 @@
 
             search.innerHTML = html;
 
+            callback();
+
         } else if (response.status == 401) {
             var data = await response.text();   // for res.send()
             alert(data);
@@ -172,6 +174,8 @@
         var firstLink = document.getElementById("firstLink");
         var lastLink = document.getElementById("lastLink");
 
+        var currentPageNumber = Math.floor(offset / limit) + 1;
+
         previousButton.onclick = function () {
             if (offset >= limit) {
                 setPagination(2, offset - limit);
@@ -179,7 +183,7 @@
         };
 
         nextButton.onclick = function () {
-            if (offset + limit < numPages*limit) {
+            if (offset + limit < numPages * limit) {
                 setPagination(2, offset + limit);
             }
         };
@@ -204,36 +208,52 @@
             setPagination(2, (numPages - 1) * limit)
         };
 
-        var currentPageNumber = Math.floor(offset / limit) + 1;
-
-        previousLink.innerHTML = currentPageNumber - 1;
+        
+        // fetchPage(limit, offset);
+        submitForm(document.getElementById("form"), () => {
+            previousLink.innerHTML = currentPageNumber - 1;
         currentLink.innerHTML = currentPageNumber;
         nextLink.innerHTML = currentPageNumber + 1;
         lastLink.innerHTML = numPages;
 
-        // fetchPage(limit, offset);
-        submitForm(document.getElementById("form"))
 
-        console.log("Offset:"+offset+", Limit:"+limit+", numPages:"+ numPages+", CurrentPage:"+currentPageNumber);
+            if (numPages == 1) {
+                nextButton.setAttribute("disabled", "disabled");
+                previousLink.style.display = "none";
+                nextLink.style.display = "none";
+                firstLink.style.display = "none";
+                lastLink.style.display = "none";
+            } else if (currentPageNumber == 1) {
+                previousButton.setAttribute("disabled", "disabled");
+                nextButton.removeAttribute("disabled");
+                // previousButton.href = "";
+                previousLink.style.display = "none";
+                nextLink.style.display = "inline-block";
+                firstLink.style.display = "inline-block";
+                lastLink.style.display = "inline-block";
+            } else if (currentPageNumber == numPages) {
+                nextButton.setAttribute("disabled", "disabled");
+                previousButton.removeAttribute("disabled");
+                // nextButton.href = "";
+                nextLink.style.display = "none";
+                previousLink.style.display = "inline-block";
+                firstLink.style.display = "inline-block";
+                lastLink.style.display = "inline-block";
+            } else {
+                previousButton.removeAttribute("disabled");
+                nextButton.removeAttribute("disabled");
+                nextLink.style.display = "inline-block";
+                previousLink.style.display = "inline-block";
+                firstLink.style.display = "inline-block";
+                lastLink.style.display = "inline-block";
+            }
 
-        if (currentPageNumber == 1) {
-            previousButton.setAttribute("disabled", "disabled");
-            nextButton.removeAttribute("disabled");
-            // previousButton.href = "";
-            previousLink.style.display = "none";
-            nextLink.style.display = "inline-block";
-        } else if (currentPageNumber == numPages) {
-            nextButton.setAttribute("disabled", "disabled");
-            previousButton.removeAttribute("disabled");
-            // nextButton.href = "";
-            nextLink.style.display = "none";
-            previousLink.style.display = "inline-block";
-        } else {
-            previousButton.removeAttribute("disabled");
-            nextButton.removeAttribute("disabled");
-            nextLink.style.display = "inline-block";
-            previousLink.style.display = "inline-block";
-        }
+            
+        })
+
+        console.log("Offset:" + offset + ", Limit:" + limit + ", numPages:" + numPages + ", CurrentPage:" + currentPageNumber);
+
+
     }
 
     setPagination(2, 0);
