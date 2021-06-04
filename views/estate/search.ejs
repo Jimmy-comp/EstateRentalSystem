@@ -182,7 +182,6 @@
             if (offset + limit < numPages*limit) {
                 setPagination(2, offset + limit);
             }
-
         };
 
         currentLink.onclick = function () {
@@ -204,8 +203,6 @@
         lastLink.onclick = function () {
             setPagination(2, (numPages - 1) * limit)
         };
-
-        // var numOfRecords = numPages;
 
         var currentPageNumber = Math.floor(offset / limit) + 1;
 
