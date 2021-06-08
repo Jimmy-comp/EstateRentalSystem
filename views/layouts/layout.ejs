@@ -33,7 +33,7 @@
     -->
 
       <!--STYLES-->
-      <link rel="stylesheet" href="/min/production.min.css">
+      <link rel="stylesheet" href="/styles/importer.css">
       <!--STYLES END-->
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -48,12 +48,12 @@
       <a class="navbar-brand " href="/">
         <img src="/images/home_logo.png" width="50px" height="50px" alt="" />
       </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto" style="font-size: 20px;">
           <li class="nav-item active">
             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
@@ -74,27 +74,16 @@
                 <a class="nav-link" href="/estate/admin">Admin</a>
               </li>
               <% } %>
-
-                <li class="nav-item">
-                  <% if(req.session.username){ %>
-                    <label class="mr-sm-2">Hi, <%= req.session.username %>. (</label>
-                    <a class="nav-link mr-sm-2" href="/user/logout">Logout</a>
-                    <label class="mr-sm-2">)</label>
-                    <% } else { %>
-                      <a class="nav-link mr-sm-2" href="/user/login">Login</a>
-                      <% } %>
-                </li>
         </ul>
 
-        <!-- <form class="form-inline" style="font-size: 20px;">
+        <form class="form-inline" style="font-size: 20px;">
           <% if(req.session.username){ %>
-            <label class="mr-sm-2">Hi, <%= req.session.username %>. (</label>
-            <a class="nav-link mr-sm-2" href="/user/logout">Logout</a>
-            <label class="mr-sm-2">)</label>
+            <label class="mr-sm-2 mb-0">Hi, <%= req.session.username %>.</label>
+            <a class="btn btn-primary mr-sm-2" href="/user/logout" style="border-radius: 50px;">Logout</a>
             <% } else { %>
-              <a class="nav-link mr-sm-2" href="/user/login">Login</a>
+              <a class="btn btn-primary" href="/user/login" style="border-radius: 50px;">Login</a>
               <% } %>
-        </form> -->
+        </form>
       </div>
     </nav>
 
@@ -176,7 +165,7 @@
     -->
 
   <!--SCRIPTS-->
-  <script src="/min/production.min.js"></script>
+  <script src="/dependencies/sails.io.js"></script>
   <!--SCRIPTS END-->
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
