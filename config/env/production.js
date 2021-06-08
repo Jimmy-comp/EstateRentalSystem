@@ -47,7 +47,8 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     default: {
-      // adapter: 'sails-mysql',
+      adapter: 'sails-mongo',
+      url: 'mongodb://dbUser:d8hvuKSiaWer56Xr@cluster0-shard-00-00.xacmv.mongodb.net:27017,cluster0-shard-00-01.xacmv.mongodb.net:27017,cluster0-shard-00-02.xacmv.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-12n8q5-shard-0&authSource=admin&retryWrites=true&w=majority',
       // url: 'mysql://user:password@host:port/database',
       //--------------------------------------------------------------------------
       //  /\   To avoid checking it in to version control, you might opt to set
@@ -250,10 +251,10 @@ module.exports = {
     * > Be sure to use the right protocol!  ("http://" vs. "https://")         *
     *                                                                          *
     ***************************************************************************/
-    // onlyAllowOrigins: [
-    //   'https://example.com',
-    //   'https://staging.example.com',
-    // ],
+    onlyAllowOrigins: [
+      'https://serene-gorge-36506.herokuapp.com',
+      // 'https://staging.example.com',
+    ],
 
 
     /***************************************************************************
