@@ -1,21 +1,144 @@
-<div class="row">
-  <% estates.forEach( function(model) { %>
-  <div class="col-md-6 card">
-    <a href="/estate/view/<%= model.id %>" class="h2" style="margin-top: 20px;"><%= model.title %></a>
+<div class="slideshow-container">
+  <% estates.forEach(function(model) { %>
+    <div class="mySlides fade card" style="padding: 30px; background-image: url(<%= model.url %>);">
+      <div class="text" style="background-color: rgba(141, 240, 243, 0.719); width: 30%;">
+        <a href="/estate/view/<%= model.id %>" class="h2" style="padding: 20px; font-size: 30px; text-align: center;">
+          <%= model.title %>
+        </a>
 
-    <div class="row">
-      <div class="col-md-6">
-        <img src="<%= model.url%>" width="220" height="130" />
-      </div>
-
-      <div class="col-md-6">
-        <div class="list-group" style="margin-bottom: 20px;">
-          <p class="list-group-item"><b>Estate:</b> <%= model.estatename %></p>
-          <p class="list-group-item"><b>Gross Area:</b> <%= model.area %> sq feet</p>
-          <p class="list-group-item"><b>Rent:</b> $<%= model.rent %></p>
-        </div>
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <b>Estate:</b>
+            <span class="badge badge-primary badge-pill">
+              <%= model.estatename %>
+            </span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <b>Gross Area:</b>
+            <span class="badge badge-primary badge-pill">
+              <%= model.area %> sq feet
+            </span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <b>Rent:</b>
+            <span class="badge badge-primary badge-pill">$<%= model.rent %></span>
+          </li>
+        </ul>
       </div>
     </div>
-  </div>
-  <% }); %>
+    <% }); %>
 </div>
+
+<br>
+
+<div style="text-align:center">
+  <span class="dot"></span>
+  <span class="dot"></span>
+  <span class="dot"></span>
+</div>
+
+<style>
+  .mySlides {
+    /* display: none; */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    min-height: 600px;
+    /* padding: 40px; */
+  }
+
+  /* Slideshow container */
+  .slideshow-container {
+    max-width: 1000px;
+
+    position: relative;
+    margin: auto;
+  }
+
+  /* The dots/bullets/indicators */
+  .dot {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.7s ease;
+  }
+
+  .dot.active {
+    background-color: #717171;
+  }
+
+  /* Fading animation */
+  .fade {
+    /* -webkit-animation-name: fade;
+    -webkit-animation-duration: 3.5s; */
+    animation-name: fade;
+    animation-duration: 3.5s;
+  }
+
+  .list-group-item {
+    background-color: rgba(240, 248, 255, 0.637);
+    font-size: 18px;
+  }
+
+  .badge {
+    padding: 5px 10px;
+  }
+
+  /* @-webkit-keyframes fade {
+    from {
+      opacity: 0
+    }
+
+    50% {
+      opacity: .5
+    }
+
+    to {
+      opacity: 1
+    }
+  } */
+
+  @keyframes fade {
+    from {
+      opacity: .2
+    }
+
+    to {
+      opacity: 1
+    }
+  }
+
+  /* On smaller screens, decrease text size */
+  @media only screen and (max-width: 300px) {
+    .text {
+      font-size: 11px
+    }
+  }
+</style>
+
+<script>
+  var slideIndex = 0;
+  showSlides();
+
+  function showSlides() {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("dot");
+
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+
+    slideIndex++;
+    if (slideIndex > slides.length) { slideIndex = 1 }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+    setTimeout(showSlides, 3000); // Change image every 2 seconds
+  }
+</script>

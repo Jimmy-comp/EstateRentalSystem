@@ -21,7 +21,7 @@ module.exports.bootstrap = async function () {
   if (await Estate.count() == 0) {
     await Estate.createEach([
       { title: "3 rooms", estatename: "Bel-Air Residence", district: "Southern District", area: 30, rent: 14000, url: "https://www.ikea.com/images/step-into-living-room-turned-haven-made-just-for-you-with-a--0f78c0738a9904f9ddbbc81dd5af2ffa.jpg?f=s", roomnum: 3, tenants: 2, highlightprop: "" },
-      { title: "The Popular Part", estatename: "City Garden", district: "North Point", area: 150, rent: 20000, url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdJZEynmnQjySyRJcKgbXLAVZ-M8MY-Vtvwmfh-EPyxfWORsfQ2g", roomnum: 1, tenants: 1, highlightprop: "true" },
+      { title: "The Popular Part", estatename: "City Garden", district: "North Point", area: 150, rent: 20000, url: "https://d1hy6t2xeg0mdl.cloudfront.net/image/358576/5d5602665f/standard", roomnum: 1, tenants: 1, highlightprop: "true" },
       { title: "全港最貴", estatename: "Heng Fa Chuen", district: "Chai Wan", area: 100, rent: 17000, url: "http://images.unsplash.com/photo-1550581190-9c1c48d21d6c?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEyMDd9", roomnum: 3, tenants: 5, highlightprop: "true" },
       { title: "無敵大海景", estatename: "Victoria Harbour", district: "North Point", area: 300, rent: 30000, url: "http://www.shkpclub.com/files/clubnews_201902_S06a.jpg", roomnum: 3, tenants: 3, highlightprop: "true" },
       { title: "Beautiful Landscape", estatename: "Ocean Pride", district: "Tsuen Wan", area: 230, rent: 21000, url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Ocean_Pride_in_2020.jpg/480px-Ocean_Pride_in_2020.jpg", roomnum: 2, tenants: 3, highlightprop: "" },
