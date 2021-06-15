@@ -149,9 +149,9 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     cors: {
-      // allowOrigins: [
-      //   'https://example.com',
-      // ]
+      allowOrigins: [
+        'https://estate-rental-system.herokuapp.com',
+      ]
     },
 
   },
@@ -252,7 +252,7 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     onlyAllowOrigins: [
-      'https://serene-gorge-36506.herokuapp.com',
+      'https://estate-rental-system.herokuapp.com',
       // 'https://staging.example.com',
     ],
 
