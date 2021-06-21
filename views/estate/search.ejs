@@ -103,11 +103,11 @@
 
 <script>
     var numPages = <%=count%>;
-    async function submitForm(oFormElement, callback) {
+    async function submitForm(oFormElement, callback, page) {
 
         var search = document.getElementById("search");
 
-        var response = await fetch(oFormElement.action + '?' + Array.from(new FormData(oFormElement).entries()).map(e => e[0] + '=' + e[1]).join('&') + '&page=' + document.getElementById('currentLink').innerHTML, {
+        var response = await fetch(oFormElement.action + '?' + Array.from(new FormData(oFormElement).entries()).map(e => e[0] + '=' + e[1]).join('&') + '&page=' + page, {
             method: oFormElement.method
         });
 
@@ -208,13 +208,13 @@
             setPagination(2, (numPages - 1) * limit)
         };
 
-        
+
         // fetchPage(limit, offset);
         submitForm(document.getElementById("form"), () => {
             previousLink.innerHTML = currentPageNumber - 1;
-        currentLink.innerHTML = currentPageNumber;
-        nextLink.innerHTML = currentPageNumber + 1;
-        lastLink.innerHTML = numPages;
+            currentLink.innerHTML = currentPageNumber;
+            nextLink.innerHTML = currentPageNumber + 1;
+            lastLink.innerHTML = numPages;
 
 
             if (numPages == 1) {
@@ -248,8 +248,8 @@
                 lastLink.style.display = "inline-block";
             }
 
-            
-        })
+
+        }, currentPageNumber)
 
         console.log("Offset:" + offset + ", Limit:" + limit + ", numPages:" + numPages + ", CurrentPage:" + currentPageNumber);
 
@@ -257,5 +257,5 @@
     }
 
     setPagination(2, 0);
-    
+
 </script>
