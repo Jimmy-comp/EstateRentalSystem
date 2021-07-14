@@ -75,5 +75,7 @@ module.exports.routes = {
   'GET /user/myrental': 'UserController.myrental',
 
   // Get JSON File
-  'GET /json': 'EstateController.json',
+  'GET /estate/json': 'EstateController.json',
+
+  'GET /user/json': 'UserController.json',
 };
