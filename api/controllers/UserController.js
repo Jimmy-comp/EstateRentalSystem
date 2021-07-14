@@ -125,9 +125,9 @@ module.exports = {
 
     json: async function (req, res) {
 
-        var estates = await Estate.find();
+        var users = await User.find();
     
-        return res.json(estates);
+        return res.json(users);
     },
 };
 
