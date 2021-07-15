@@ -31,7 +31,7 @@ module.exports = {
             sails.log("[Session] ", req.session);
 
             if (req.wantsJSON) {
-                return res.json({ message: "Login Successfully.", url: '/' });    // for ajax request
+                return res.json({ message: "Login Successfully.", url: '/', user: user});    // for ajax request
             } else {
                 return res.redirect('/');           // for normal request
             }
