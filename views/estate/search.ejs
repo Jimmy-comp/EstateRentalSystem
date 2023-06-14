@@ -7,7 +7,6 @@
     </div>
 
     <% const current=parseInt(req.query.page) || 1; %>
-
         <div class="form-group col-md-6 col-sm-1">
             <h2 style="font-size: 28px; text-align: center; margin-bottom: 20px; font-weight: bold;">Property Search
             </h2>
@@ -96,7 +95,6 @@
                 </div>
 
                 <button type="menu" class="btn btn-primary ">Search</button>
-
             </form>
         </div>
 </div>
@@ -247,15 +245,10 @@
                 firstLink.style.display = "inline-block";
                 lastLink.style.display = "inline-block";
             }
-
-
         }, currentPageNumber)
 
         console.log("Offset:" + offset + ", Limit:" + limit + ", numPages:" + numPages + ", CurrentPage:" + currentPageNumber);
-
-
     }
 
     setPagination(2, 0);
-
 </script>
