@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, type FC, type ChangeEvent, type FormEvent } from "react";
 import { getEstatesByForm, type Estate } from "../services/estateService";
 
-const Search: React.FC = () => {
+const Search: FC = () => {
   //const { estates, districts, isLoading } = useAppContext();
   const [estates, setEstates] = useState<Estate[]>([]);
   const [districts, setDistricts] = useState<string[]>([]);
@@ -36,12 +36,12 @@ const Search: React.FC = () => {
     fetchEstates();
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     //setPage(1); // reset pagination when changing filter
   };
 
-  const handleBtnClick = async (e?: React.FormEvent) => {
+  const handleBtnClick = async (e?: FormEvent) => {
     e?.preventDefault();
 
     try{

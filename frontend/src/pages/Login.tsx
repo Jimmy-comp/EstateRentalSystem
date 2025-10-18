@@ -1,20 +1,19 @@
-import { useState } from "react";
+import { useState, type FC, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { handleUserLogin } from "../services/userService";
 import { useUserContext } from "../context/UserContext";
 
 
-const Login: React.FC = () => {
+const Login: FC = () => {
     const {login} = useUserContext();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 
-    const handleBtnClick = async (e?: React.FormEvent) => {
+    const handleBtnClick = async (e?: FormEvent) => {
         e?.preventDefault();
 
-        if(!username || !password) return setError("⚠️ Please enter both username and password.");
+        if(!username || !password) return alert("⚠️ Please enter both username and password.");
 
         try{
             const data = await handleUserLogin(username, password);
@@ -24,8 +23,7 @@ const Login: React.FC = () => {
             navigate("/");
         } catch (err) {
             console.error("(Login) Login Failed:", err);
-            setError("🚨 Server error, please try again later.");
-            alert("Login Failed");
+            alert("🚨 Server error, please try again later.");
         }
     }
 

@@ -1,8 +1,8 @@
-import React, { useEffect, useState} from "react";
+import { useEffect, useState, type FC} from "react";
 import { getEstates, type Estate } from "../services/estateService";
 import EstateCard from "../components/EstateCard";
 
-const Home: React.FC = () => {
+const Home: FC = () => {
     const [estates, setEstates] = useState<Estate[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [loading, setLoading] = useState(true);
